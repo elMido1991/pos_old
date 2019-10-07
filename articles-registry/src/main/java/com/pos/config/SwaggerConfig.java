@@ -23,6 +23,6 @@ public class SwaggerConfig {
 
 	public ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("document api").description("swagger ")
-				.termsOfServiceUrl("http://localhost:6255/document/").contact("Abdelouahid").version("1.0").build();
+				.termsOfServiceUrl("http://localhost:6255/articles/").version("1.0").build();
 	}
 }

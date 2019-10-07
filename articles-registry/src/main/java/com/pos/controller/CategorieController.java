@@ -17,56 +17,56 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pos.dao.model.dto.ArticleDto;
-import com.pos.service.ArticleService;
+import com.pos.dao.model.dto.CategorieDto;
+import com.pos.service.CategorieService;
 
 import io.swagger.annotations.ApiOperation;
 
-@RequestMapping("/articles")
+@RequestMapping("/categories")
 @Controller
 public class CategorieController {
 
 	@Autowired
-	private ArticleService articleService;
+	private CategorieService categorieService;
 	
 	@PostMapping(value= "/add",consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "")
-	public ResponseEntity<String> addArticle(@RequestBody ArticleDto articledto) throws IllegalAccessException, InvocationTargetException {
-		if(Optional.ofNullable(articleService.addOrUpdateArticle(articledto)).isPresent())
-			return ResponseEntity.ok().body("Article created");
+	public ResponseEntity<String> addCategorie(@RequestBody CategorieDto categoriedto) throws IllegalAccessException, InvocationTargetException {
+		if(Optional.ofNullable(categorieService.addOrUpdateCategorie(categoriedto)).isPresent())
+			return ResponseEntity.ok().body("Categorie created");
 		else
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Article not created");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Categorie not created");
 	}
 	
 	
 	@PutMapping(value= "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> updateArticle(@PathVariable long id,@RequestBody ArticleDto articledto) throws IllegalAccessException, InvocationTargetException {
-		articledto.setId(id);
-		if(Optional.ofNullable(articleService.addOrUpdateArticle(articledto)).isPresent())
-			return ResponseEntity.ok().body("Article updated");
+	public ResponseEntity<String> updateCategorie(@PathVariable long id,@RequestBody CategorieDto categoriedto) throws IllegalAccessException, InvocationTargetException {
+		categoriedto.setId(id);
+		if(Optional.ofNullable(categorieService.addOrUpdateCategorie(categoriedto)).isPresent())
+			return ResponseEntity.ok().body("Categorie updated");
 		else
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Article not updated");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Categorie not updated");
 	}
 	
 	
 	@GetMapping(value= "/all",produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<ArticleDto> getAllArticles() {
-		return articleService.getAllArticles();
+	public @ResponseBody List<CategorieDto> getAllCategories() {
+		return categorieService.getAllCategories();
 	}
 	
 	@GetMapping(value= "/find/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ArticleDto getArticle(@PathVariable long id) {
-		return articleService.getArticle(id);
+	public @ResponseBody CategorieDto getCategorie(@PathVariable long id) {
+		return categorieService.getCategorie(id);
 	}
 	
 	@GetMapping(value= "/find/{start}/{end}",produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<ArticleDto> getArticlesByPagination(@PathVariable int start,@PathVariable int end) {
-		return articleService.getAllArticlesByPagination(start, end);
+	public @ResponseBody List<CategorieDto> getCategoriesByPagination(@PathVariable int start,@PathVariable int end) {
+		return categorieService.getAllCategoriesByPagination(start, end);
 	}
 	
 	@GetMapping(value= "/find/{start}/{end}/{sortby}/{asc}",produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<ArticleDto> getArticlesByPaginationAndSort(@PathVariable int start,@PathVariable int end, @PathVariable String sortby, @PathVariable String asc) {
-		return articleService.getAllArticlesByPaginationAndSorting(start, end,sortby,asc);
+	public @ResponseBody List<CategorieDto> getCategoriesByPaginationAndSort(@PathVariable int start,@PathVariable int end, @PathVariable String sortby, @PathVariable String asc) {
+		return categorieService.getAllCategoriesByPaginationAndSorting(start, end,sortby,asc);
 	}
 	
 	

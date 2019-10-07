@@ -13,13 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleDto implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 
-	 */
+	
 	private long id;
 	private String designation;
 	private String description;
