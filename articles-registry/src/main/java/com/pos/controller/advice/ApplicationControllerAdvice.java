@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
 @Slf4j
-public class ArticleControllerAdvice {
+public class ApplicationControllerAdvice {
 
 	@ExceptionHandler({ HttpMessageNotReadableException.class})
     public void handleHttpMessageNotReadableException() {
