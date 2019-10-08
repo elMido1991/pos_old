@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.pos.dao.model.Categorie;
 import com.pos.dao.model.dto.CategorieDto;
-import com.pos.dao.model.mappers.CategorieMapper;
+import com.pos.dao.model.mappers.impl.CategorieMapper;
 import com.pos.dao.repository.CategorieRepository;
 import com.pos.service.ICategorieService;
 
@@ -27,7 +27,7 @@ public class CategorieService implements ICategorieService {
 	@Autowired
 	private CategorieRepository categorieRepository;
 	
-	public CategorieDto addOrUpdateCategorie(CategorieDto categoriedto) throws IllegalAccessException, InvocationTargetException {
+	public CategorieDto addOrUpdateCategorie(CategorieDto categoriedto) throws Exception {
 		Categorie categorie = categorieMapper.mapToEntity(categoriedto);
 		categorie = categorieRepository.save(categorie);
 		categoriedto = categorieMapper.mapToDto(categorie);
@@ -38,7 +38,14 @@ public class CategorieService implements ICategorieService {
 	public List<CategorieDto> getAllCategories() {
 		List<Categorie> categories = categorieRepository.findAll();
 		List<CategorieDto> categoriesdto = new ArrayList<>();
-		categories.forEach(categorie -> categoriesdto.add(categorieMapper.mapToDto(categorie)) );
+		categories.forEach(categorie -> {
+			try {
+				categoriesdto.add(categorieMapper.mapToDto(categorie));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} );
 		return categoriesdto;
 	}
 	
@@ -47,7 +54,14 @@ public class CategorieService implements ICategorieService {
 		Pageable categoriepage = PageRequest.of(start, end);
 		Page<Categorie> pagecategories = categorieRepository.findAll(categoriepage);
 		List<CategorieDto> categoriesdto = new ArrayList<>();
-		pagecategories.forEach(categorie -> categoriesdto.add(categorieMapper.mapToDto(categorie)) );
+		pagecategories.forEach(categorie -> {
+			try {
+				categoriesdto.add(categorieMapper.mapToDto(categorie));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} );
 		return categoriesdto;
 	}
 	
@@ -55,12 +69,19 @@ public class CategorieService implements ICategorieService {
 		Pageable categoriepage = PageRequest.of(start, end,"asc".equals(asc)?Sort.by(sortby).ascending():Sort.by(sortby).descending());
 		Page<Categorie> pagecategories = categorieRepository.findAll(categoriepage);
 		List<CategorieDto> categoriesdto = new ArrayList<>();
-		pagecategories.forEach(categorie -> categoriesdto.add(categorieMapper.mapToDto(categorie)) );
+		pagecategories.forEach(categorie -> {
+			try {
+				categoriesdto.add(categorieMapper.mapToDto(categorie));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} );
 		return categoriesdto;
 	}
 
 
-	public CategorieDto getCategorie(long id) {
+	public CategorieDto getCategorie(long id) throws Exception {
 		Optional<Categorie> optionalCategorie = categorieRepository.findById(id);
 		return optionalCategorie.isPresent()?categorieMapper.mapToDto(optionalCategorie.get()):null;
 	}

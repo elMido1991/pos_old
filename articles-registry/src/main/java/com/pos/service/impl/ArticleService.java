@@ -1,6 +1,5 @@
 package com.pos.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.pos.dao.model.Article;
 import com.pos.dao.model.dto.ArticleDto;
-import com.pos.dao.model.mappers.ArticleMapper;
+import com.pos.dao.model.mappers.impl.ArticleMapper;
 import com.pos.dao.repository.ArticleRepository;
 import com.pos.service.IArticleService;
 
@@ -27,7 +26,7 @@ public class ArticleService implements IArticleService {
 	@Autowired
 	private ArticleRepository articleRepository;
 	
-	public ArticleDto addOrUpdateArticle(ArticleDto articledto) throws IllegalAccessException, InvocationTargetException {
+	public ArticleDto addOrUpdateArticle(ArticleDto articledto) throws Exception {
 		Article article = articleMapper.mapToEntity(articledto);
 		article = articleRepository.save(article);
 		articledto = articleMapper.mapToDto(article);
@@ -35,19 +34,33 @@ public class ArticleService implements IArticleService {
 	}
 
 
-	public List<ArticleDto> getAllArticles() {
+	public List<ArticleDto> getAllArticles() throws Exception {
 		List<Article> articles = articleRepository.findAll();
 		List<ArticleDto> articlesdto = new ArrayList<>();
-		articles.forEach(article -> articlesdto.add(articleMapper.mapToDto(article)) );
+		articles.forEach(article -> {
+			try {
+				articlesdto.add(articleMapper.mapToDto(article));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} );
 		return articlesdto;
 	}
 	
 	
-	public List<ArticleDto> getAllArticlesByPagination(int start, int end) {
+	public List<ArticleDto> getAllArticlesByPagination(int start, int end) throws Exception {
 		Pageable articlepage = PageRequest.of(start, end);
 		Page<Article> pagearticles = articleRepository.findAll(articlepage);
 		List<ArticleDto> articlesdto = new ArrayList<>();
-		pagearticles.forEach(article -> articlesdto.add(articleMapper.mapToDto(article)) );
+		pagearticles.forEach(article -> {
+			try {
+				articlesdto.add(articleMapper.mapToDto(article));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} );
 		return articlesdto;
 	}
 	
@@ -55,14 +68,21 @@ public class ArticleService implements IArticleService {
 		Pageable articlepage = PageRequest.of(start, end,"asc".equals(asc)?Sort.by(sortby).ascending():Sort.by(sortby).descending());
 		Page<Article> pagearticles = articleRepository.findAll(articlepage);
 		List<ArticleDto> articlesdto = new ArrayList<>();
-		pagearticles.forEach(article -> articlesdto.add(articleMapper.mapToDto(article)) );
+		pagearticles.forEach(article -> {
+			try {
+				articlesdto.add(articleMapper.mapToDto(article));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} );
 		return articlesdto;
 	}
 
 
-	public ArticleDto getArticle(long id) {
+	public ArticleDto getArticle(long id) throws Exception {
 		Optional<Article> optionalarticle = articleRepository.findById(id);
-		return optionalarticle.isPresent()?articleMapper.mapToDto(optionalarticle.get()):null;
+		return optionalarticle.isPresent()? articleMapper.mapToDto(optionalarticle.get()):null;
 	}
 
 }

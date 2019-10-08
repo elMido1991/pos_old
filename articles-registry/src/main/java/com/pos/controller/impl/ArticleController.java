@@ -1,6 +1,5 @@
-package com.pos.controller;
+package com.pos.controller.impl;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pos.controller.IArticleController;
 import com.pos.dao.model.dto.ArticleDto;
 import com.pos.service.impl.ArticleService;
 
@@ -24,14 +24,14 @@ import io.swagger.annotations.ApiOperation;
 
 @RequestMapping("/articles")
 @Controller
-public class ArticleController {
+public class ArticleController implements IArticleController {
 
 	@Autowired
 	private ArticleService articleService;
 	
 	@PostMapping(value= "/add",consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "add article")
-	public ResponseEntity<String> addArticle(@RequestBody ArticleDto articledto) throws IllegalAccessException, InvocationTargetException, Exception {
+	public ResponseEntity<String> addArticle(@RequestBody ArticleDto articledto) throws Exception {
 		if(Optional.ofNullable(articleService.addOrUpdateArticle(articledto)).isPresent())
 			return ResponseEntity.ok().body("Article created");
 		else
@@ -41,7 +41,7 @@ public class ArticleController {
 	
 	@PutMapping(value= "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "update article")
-	public ResponseEntity<String> updateArticle(@PathVariable long id,@RequestBody ArticleDto articledto) throws IllegalAccessException, InvocationTargetException, Exception {
+	public ResponseEntity<String> updateArticle(@PathVariable long id,@RequestBody ArticleDto articledto) throws Exception {
 		articledto.setId(id);
 		if(Optional.ofNullable(articleService.addOrUpdateArticle(articledto)).isPresent())
 			return ResponseEntity.ok().body("Article updated");

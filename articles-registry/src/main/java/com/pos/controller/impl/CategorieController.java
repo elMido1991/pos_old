@@ -1,4 +1,4 @@
-package com.pos.controller;
+package com.pos.controller.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pos.controller.ICategorieController;
 import com.pos.dao.model.dto.CategorieDto;
 import com.pos.service.impl.CategorieService;
 
@@ -24,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RequestMapping("/categories")
 @Controller
-public class CategorieController {
+public class CategorieController implements ICategorieController {
 
 	@Autowired
 	private CategorieService categorieService;

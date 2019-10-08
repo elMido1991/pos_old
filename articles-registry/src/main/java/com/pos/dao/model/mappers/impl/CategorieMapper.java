@@ -1,6 +1,4 @@
-package com.pos.dao.model.mappers;
-
-import java.lang.reflect.InvocationTargetException;
+package com.pos.dao.model.mappers.impl;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -13,14 +11,14 @@ public class CategorieMapper {
 	
 	
 	
-	public Categorie mapToEntity(CategorieDto categoriedto) throws IllegalAccessException, InvocationTargetException {
+	public Categorie mapToEntity(CategorieDto categoriedto) throws Exception {
 		Categorie categorie = new Categorie();
 		BeanUtils.copyProperties(categoriedto, categorie);
 		return categorie;
 	}
 	
 	
-	public CategorieDto mapToDto(Categorie categorie) {
+	public CategorieDto mapToDto(Categorie categorie) throws Exception{
 		CategorieDto categoriedto = new CategorieDto();
 		BeanUtils.copyProperties(categorie, categoriedto);
 		return categoriedto;
