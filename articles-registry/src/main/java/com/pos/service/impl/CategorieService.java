@@ -1,4 +1,4 @@
-package com.pos.service;
+package com.pos.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -16,9 +16,10 @@ import com.pos.dao.model.Categorie;
 import com.pos.dao.model.dto.CategorieDto;
 import com.pos.dao.model.mappers.CategorieMapper;
 import com.pos.dao.repository.CategorieRepository;
+import com.pos.service.ICategorieService;
 
 @Service
-public class CategorieService {
+public class CategorieService implements ICategorieService {
 
 	@Autowired
 	private CategorieMapper categorieMapper;

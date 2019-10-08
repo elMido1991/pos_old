@@ -1,4 +1,4 @@
-package com.pos.service;
+package com.pos.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -16,9 +16,10 @@ import com.pos.dao.model.Article;
 import com.pos.dao.model.dto.ArticleDto;
 import com.pos.dao.model.mappers.ArticleMapper;
 import com.pos.dao.repository.ArticleRepository;
+import com.pos.service.IArticleService;
 
 @Service
-public class ArticleService {
+public class ArticleService implements IArticleService {
 
 	@Autowired
 	private ArticleMapper articleMapper;

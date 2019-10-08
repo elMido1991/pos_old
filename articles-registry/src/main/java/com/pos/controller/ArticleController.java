@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pos.dao.model.dto.ArticleDto;
-import com.pos.service.ArticleService;
+import com.pos.service.impl.ArticleService;
 
 import io.swagger.annotations.ApiOperation;
 
