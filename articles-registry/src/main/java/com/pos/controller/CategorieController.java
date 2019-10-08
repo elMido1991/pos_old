@@ -30,7 +30,7 @@ public class CategorieController {
 	private CategorieService categorieService;
 	
 	@PostMapping(value= "/add",consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "")
+	@ApiOperation(value = "add article")
 	public ResponseEntity<String> addCategorie(@RequestBody CategorieDto categoriedto) throws IllegalAccessException, InvocationTargetException,Exception {
 		if(Optional.ofNullable(categorieService.addOrUpdateCategorie(categoriedto)).isPresent())
 			return ResponseEntity.ok().body("Categorie created");
@@ -40,6 +40,7 @@ public class CategorieController {
 	
 	
 	@PutMapping(value= "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "update categorie")
 	public ResponseEntity<String> updateCategorie(@PathVariable long id,@RequestBody CategorieDto categoriedto) throws IllegalAccessException, InvocationTargetException,Exception {
 		categoriedto.setId(id);
 		if(Optional.ofNullable(categorieService.addOrUpdateCategorie(categoriedto)).isPresent())
@@ -50,21 +51,25 @@ public class CategorieController {
 	
 	
 	@GetMapping(value= "/all",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "get all categories")
 	public @ResponseBody List<CategorieDto> getAllCategories() throws Exception {
 		return categorieService.getAllCategories();
 	}
 	
 	@GetMapping(value= "/find/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "get one categorie")
 	public @ResponseBody CategorieDto getCategorie(@PathVariable long id) throws Exception {
 		return categorieService.getCategorie(id);
 	}
 	
 	@GetMapping(value= "/find/{start}/{end}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "get categories by pagination")
 	public @ResponseBody List<CategorieDto> getCategoriesByPagination(@PathVariable int start,@PathVariable int end) throws Exception {
 		return categorieService.getAllCategoriesByPagination(start, end);
 	}
 	
 	@GetMapping(value= "/find/{start}/{end}/{sortby}/{asc}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "get categories by pagination with sorting")
 	public @ResponseBody List<CategorieDto> getCategoriesByPaginationAndSort(@PathVariable int start,@PathVariable int end, @PathVariable String sortby, @PathVariable String asc) throws Exception {
 		return categorieService.getAllCategoriesByPaginationAndSorting(start, end,sortby,asc);
 	}

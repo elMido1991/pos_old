@@ -30,7 +30,7 @@ public class ArticleController {
 	private ArticleService articleService;
 	
 	@PostMapping(value= "/add",consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "")
+	@ApiOperation(value = "add article")
 	public ResponseEntity<String> addArticle(@RequestBody ArticleDto articledto) throws IllegalAccessException, InvocationTargetException, Exception {
 		if(Optional.ofNullable(articleService.addOrUpdateArticle(articledto)).isPresent())
 			return ResponseEntity.ok().body("Article created");
@@ -40,6 +40,7 @@ public class ArticleController {
 	
 	
 	@PutMapping(value= "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "update article")
 	public ResponseEntity<String> updateArticle(@PathVariable long id,@RequestBody ArticleDto articledto) throws IllegalAccessException, InvocationTargetException, Exception {
 		articledto.setId(id);
 		if(Optional.ofNullable(articleService.addOrUpdateArticle(articledto)).isPresent())
@@ -50,21 +51,25 @@ public class ArticleController {
 	
 	
 	@GetMapping(value= "/all",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "get all articles")
 	public @ResponseBody List<ArticleDto> getAllArticles() throws Exception {
 		return articleService.getAllArticles();
 	}
 	
 	@GetMapping(value= "/find/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "get one article")
 	public @ResponseBody ArticleDto getArticle(@PathVariable long id) throws Exception {
 		return articleService.getArticle(id);
 	}
 	
 	@GetMapping(value= "/find/{start}/{end}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "get articles by pagination")
 	public @ResponseBody List<ArticleDto> getArticlesByPagination(@PathVariable int start,@PathVariable int end) throws Exception {
 		return articleService.getAllArticlesByPagination(start, end);
 	}
 	
 	@GetMapping(value= "/find/{start}/{end}/{sortby}/{asc}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "get articles by pagination with sorting")
 	public @ResponseBody List<ArticleDto> getArticlesByPaginationAndSort(@PathVariable int start,@PathVariable int end, @PathVariable String sortby, @PathVariable String asc) throws Exception {
 		return articleService.getAllArticlesByPaginationAndSorting(start, end,sortby,asc);
 	}
