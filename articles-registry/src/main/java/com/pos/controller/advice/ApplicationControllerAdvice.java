@@ -18,7 +18,7 @@ public class ApplicationControllerAdvice {
     }
 	
 	
-	@ExceptionHandler({ IllegalAccessException.class, InvocationTargetException.class,IllegalStateException.class})
+	@ExceptionHandler({ IllegalAccessException.class, InvocationTargetException.class,IllegalStateException.class, Exception.class})
     public void handleException() {
         log.error("Http Status : 500 - Internal server error");
     }

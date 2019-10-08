@@ -31,7 +31,7 @@ public class CategorieController {
 	
 	@PostMapping(value= "/add",consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "")
-	public ResponseEntity<String> addCategorie(@RequestBody CategorieDto categoriedto) throws IllegalAccessException, InvocationTargetException {
+	public ResponseEntity<String> addCategorie(@RequestBody CategorieDto categoriedto) throws IllegalAccessException, InvocationTargetException,Exception {
 		if(Optional.ofNullable(categorieService.addOrUpdateCategorie(categoriedto)).isPresent())
 			return ResponseEntity.ok().body("Categorie created");
 		else
@@ -40,7 +40,7 @@ public class CategorieController {
 	
 	
 	@PutMapping(value= "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> updateCategorie(@PathVariable long id,@RequestBody CategorieDto categoriedto) throws IllegalAccessException, InvocationTargetException {
+	public ResponseEntity<String> updateCategorie(@PathVariable long id,@RequestBody CategorieDto categoriedto) throws IllegalAccessException, InvocationTargetException,Exception {
 		categoriedto.setId(id);
 		if(Optional.ofNullable(categorieService.addOrUpdateCategorie(categoriedto)).isPresent())
 			return ResponseEntity.ok().body("Categorie updated");
@@ -50,22 +50,22 @@ public class CategorieController {
 	
 	
 	@GetMapping(value= "/all",produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<CategorieDto> getAllCategories() {
+	public @ResponseBody List<CategorieDto> getAllCategories() throws Exception {
 		return categorieService.getAllCategories();
 	}
 	
 	@GetMapping(value= "/find/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody CategorieDto getCategorie(@PathVariable long id) {
+	public @ResponseBody CategorieDto getCategorie(@PathVariable long id) throws Exception {
 		return categorieService.getCategorie(id);
 	}
 	
 	@GetMapping(value= "/find/{start}/{end}",produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<CategorieDto> getCategoriesByPagination(@PathVariable int start,@PathVariable int end) {
+	public @ResponseBody List<CategorieDto> getCategoriesByPagination(@PathVariable int start,@PathVariable int end) throws Exception {
 		return categorieService.getAllCategoriesByPagination(start, end);
 	}
 	
 	@GetMapping(value= "/find/{start}/{end}/{sortby}/{asc}",produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<CategorieDto> getCategoriesByPaginationAndSort(@PathVariable int start,@PathVariable int end, @PathVariable String sortby, @PathVariable String asc) {
+	public @ResponseBody List<CategorieDto> getCategoriesByPaginationAndSort(@PathVariable int start,@PathVariable int end, @PathVariable String sortby, @PathVariable String asc) throws Exception {
 		return categorieService.getAllCategoriesByPaginationAndSorting(start, end,sortby,asc);
 	}
 	
