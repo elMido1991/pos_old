@@ -1,5 +1,9 @@
 package com.pos.dao.model.mappers;
 
-public interface StockMapper {
+import com.pos.dao.model.Stock;
+import com.pos.dao.model.dto.StockDto;
 
+public interface StockMapper {
+	Stock mapToEntity(StockDto stockDto);
+	StockDto mapToDto(Stock stock);
 }
